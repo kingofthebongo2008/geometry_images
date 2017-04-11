@@ -7,8 +7,8 @@
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.10586.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.14393.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -65,6 +65,7 @@
     <ClInclude Include="..\..\src\gim_viewer\com_exception.h" />
     <ClInclude Include="..\..\src\gim_viewer\dx12_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\dxgi_helpers.h" />
+    <ClInclude Include="..\..\src\gim_viewer\dx11_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +87,7 @@
     <ClCompile Include="..\..\src\gim_viewer\com_error.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\com_exception.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dx12_helpers.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\dx11_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dxgi_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\main.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\pch.cpp">

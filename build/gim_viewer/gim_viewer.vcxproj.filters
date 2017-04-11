@@ -19,6 +19,7 @@
     <ClCompile Include="..\..\src\gim_viewer\dxgi_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\com_exception.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\com_error.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\dx11_helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\gim_viewer\pch.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="..\..\src\gim_viewer\dxgi_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\com_error.h" />
     <ClInclude Include="..\..\src\gim_viewer\com_exception.h" />
+    <ClInclude Include="..\..\src\gim_viewer\dx11_helpers.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\lock_screen_logo.scale-200.png">
