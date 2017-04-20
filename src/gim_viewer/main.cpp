@@ -29,6 +29,8 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
 		m_device	= dx11::create_device();
 		m_factory	= dxgi::create_dxgi_factory();
+
+		auto r = dx11::create_vertex_buffer(m_device.Get(), 5, 12);
 	}
 
 	void Uninitialize() 
@@ -73,8 +75,8 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	CoreWindow::SizeChanged_revoker				m_size_changed;
 	CoreApplicationView::Activated_revoker		m_activated;
 
-	dx11::device_reference						m_device;
-	dxgi::factory_reference						m_factory;
+	dx11::device_ptr						m_device;
+	dxgi::factory_ptr						m_factory;
 };
 
 int32_t __stdcall wWinMain( HINSTANCE, HINSTANCE,PWSTR, int32_t )

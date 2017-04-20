@@ -7,7 +7,7 @@ namespace dxgi
 {
 	using namespace Microsoft::WRL;
 
-	using factory_reference = ComPtr<IDXGIFactory5>;
+	using factory_ptr = ComPtr<IDXGIFactory5>;
 
-	factory_reference create_dxgi_factory();
+	factory_ptr create_dxgi_factory();
 }

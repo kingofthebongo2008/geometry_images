@@ -66,6 +66,11 @@
     <ClInclude Include="..\..\src\gim_viewer\dx12_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\dxgi_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\dx11_helpers.h" />
+    <ClInclude Include="..\..\src\gim_viewer\dx11_base_helpers.h" />
+    <ClInclude Include="..\..\src\gim_viewer\dx11_pipeline_state.h" />
+    <ClInclude Include="..\..\src\gim_viewer\base\intrusive_ptr.h" />
+    <ClInclude Include="..\..\src\gim_viewer\base\non_copyable.h" />
+    <ClInclude Include="..\..\src\gim_viewer\base\referenced_object.h" />
     <ClInclude Include="..\..\src\gim_viewer\pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +93,10 @@
     <ClCompile Include="..\..\src\gim_viewer\com_exception.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dx12_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dx11_helpers.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\dx11_base_helpers.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\dx11_pipeline_state.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dxgi_helpers.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\base\referenced_object.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\main.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

@@ -5,9 +5,9 @@
 
 namespace dxgi
 {
-	factory_reference create_dxgi_factory()
+	factory_ptr create_dxgi_factory()
 	{
-		factory_reference r;
+		factory_ptr r;
 	
 		uint32_t flags = 0;
 
