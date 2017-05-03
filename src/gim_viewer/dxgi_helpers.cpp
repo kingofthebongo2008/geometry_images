@@ -5,7 +5,7 @@
 
 namespace dxgi
 {
-	factory_ptr create_dxgi_factory()
+	factory_ptr make_dxgi_factory()
 	{
 		factory_ptr r;
 	

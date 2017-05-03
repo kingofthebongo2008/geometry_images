@@ -9,5 +9,5 @@ namespace dxgi
 
 	using factory_ptr = ComPtr<IDXGIFactory5>;
 
-	factory_ptr create_dxgi_factory();
+	factory_ptr make_dxgi_factory();
 }

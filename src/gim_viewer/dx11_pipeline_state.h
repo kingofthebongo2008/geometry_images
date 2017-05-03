@@ -19,7 +19,7 @@ namespace dx11
 	struct D3D11_SHADER_BYTECODE
 	{
 		_Field_size_bytes_full_(BytecodeLength)  const void *pShaderBytecode;
-		SIZE_T BytecodeLength;
+		size_t BytecodeLength;
 	};
 
 	struct D3D11_GRAPHICS_PIPELINE_STATE_DESC
@@ -47,6 +47,5 @@ namespace dx11
 	};
 
 	using graphics_pipeline_state_ptr = base::intrusive_ptr<ID3D11GraphicsPipelineState>;
-
 
 }

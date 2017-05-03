@@ -11,5 +11,5 @@ namespace dx11
 	using namespace Microsoft::WRL;
 
 
-	graphics_pipeline_state_ptr create_graphics_pipelinestate(const D3D11_GRAPHICS_PIPELINE_STATE_DESC * d);
+	graphics_pipeline_state_ptr create_graphics_pipeline_state_object(device* d, const D3D11_GRAPHICS_PIPELINE_STATE_DESC * desc);
 }

@@ -27,10 +27,10 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	{
 		m_activated			= v.Activated(winrt::auto_revoke, { this, &ViewProvider::OnActivated });
 
-		m_device	= dx11::create_device();
-		m_factory	= dxgi::create_dxgi_factory();
+		m_device	= dx11::make_device();
+		m_factory	= dxgi::make_dxgi_factory();
 
-		auto r = dx11::create_vertex_buffer(m_device.Get(), 5, 12);
+		auto r = dx11::make_vertex_buffer(m_device.Get(), 5, 12);
 	}
 
 	void Uninitialize() 
