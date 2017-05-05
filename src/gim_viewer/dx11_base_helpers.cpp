@@ -108,4 +108,16 @@ namespace dx11
 		throw_if_failed(d->CreateDepthStencilState(desc, r.GetAddressOf()));
 		return r;
 	}
+
+	render_target_view_ptr	make_render_target_view(device* d, resource* res, const D3D11_RENDER_TARGET_VIEW_DESC1* desc)
+	{
+		render_target_view_ptr r;
+		throw_if_failed(d->CreateRenderTargetView1(res, desc, r.GetAddressOf()));
+		return r;
+	}
+
+	render_target_view_ptr	make_render_target_view(device* d, resource* r)
+	{
+		return make_render_target_view(d, r, nullptr);
+	}
 }

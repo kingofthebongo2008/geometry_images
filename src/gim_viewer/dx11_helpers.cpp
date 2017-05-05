@@ -50,5 +50,10 @@ namespace dx11
 
 		return r;
 	}
+
+	texture_2d_ptr get_back_buffer(dxgi::swap_chain* s, uint32_t frame_index)
+	{
+		return nullptr;
+	}
 }
 	

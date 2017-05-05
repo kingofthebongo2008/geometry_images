@@ -44,6 +44,15 @@ namespace dx11
 	using depth_stencil_state		= ID3D11DepthStencilState;
 	using depth_stencil_state_ptr	= ComPtr<ID3D11DepthStencilState>;
 
+	using render_target_view		= ID3D11RenderTargetView1;
+	using render_target_view_ptr	= ComPtr<ID3D11RenderTargetView1>;
+
+	using depth_stencil_view		= ID3D11DepthStencilView;
+	using depth_stencil_view_ptr	= ComPtr<ID3D11DepthStencilView>;
+
+	using resource					= ID3D11Resource;
+	using resource_ptr				= ComPtr<ID3D11Resource>;
+
 	device_ptr make_device();
 
 	vertex_buffer_ptr		make_vertex_buffer(device* d, uint32_t vertex_count, uint32_t vertex_stride);
@@ -57,4 +66,7 @@ namespace dx11
 	rasterizer_state_ptr	make_rasterizer_state(device* d, const D3D11_RASTERIZER_DESC2* desc);
 	input_layout_ptr		make_input_layout(device* d, const D3D11_INPUT_ELEMENT_DESC* elements, uint32_t element_count, const void* input_signature, size_t input_signature_length);
 	depth_stencil_state_ptr make_depth_stencil_state(device* d, const D3D11_DEPTH_STENCIL_DESC* desc);
+
+	render_target_view_ptr	make_render_target_view(device* d, resource* r);
+	render_target_view_ptr	make_render_target_view(device* d, resource* r, const D3D11_RENDER_TARGET_VIEW_DESC1* desc );
 }

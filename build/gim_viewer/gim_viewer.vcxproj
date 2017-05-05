@@ -68,6 +68,7 @@
     <ClInclude Include="..\..\src\gim_viewer\dx11_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\dx11_base_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\dx11_pipeline_state.h" />
+    <ClInclude Include="..\..\src\gim_viewer\graphics_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\intrusive_ptr.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\non_copyable.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\referenced_object.h" />
@@ -78,6 +79,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="gim_viewer_temporary_key.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\lock_screen_logo.scale-200.png" />
@@ -96,6 +98,7 @@
     <ClCompile Include="..\..\src\gim_viewer\dx11_base_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dx11_pipeline_state.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dxgi_helpers.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\graphics_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\base\referenced_object.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\main.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\pch.cpp">
@@ -104,5 +107,12 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\WinPixEventRuntime.1.0.170126001\build\WinPixEventRuntime.targets" Condition="Exists('..\packages\WinPixEventRuntime.1.0.170126001\build\WinPixEventRuntime.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WinPixEventRuntime.1.0.170126001\build\WinPixEventRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinPixEventRuntime.1.0.170126001\build\WinPixEventRuntime.targets'))" />
+  </Target>
 </Project>

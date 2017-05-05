@@ -48,4 +48,6 @@ namespace dx11
 
 	using graphics_pipeline_state_ptr = base::intrusive_ptr<ID3D11GraphicsPipelineState>;
 
+
+
 }
