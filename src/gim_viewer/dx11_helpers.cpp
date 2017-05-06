@@ -51,9 +51,25 @@ namespace dx11
 		return r;
 	}
 
-	texture_2d_ptr get_back_buffer(dxgi::swap_chain* s, uint32_t frame_index)
-	{
-		return nullptr;
-	}
+    graphics_context::graphics_context(device_context_ptr p) : m_context(p)
+    {
+
+    }
+
+    void graphics_context::set_pso(graphics_pipeline_state* p)
+    {
+        device_context* c = m_context.Get();
+
+        c->VSSetShader(p->m_vs.Get(), nullptr, 0);
+        c->PSSetShader(p->m_ps.Get(), nullptr, 0);
+        c->IASetInputLayout(p->m_input_layout.Get());
+        c->RSSetState(p->m_rasterizer_state.Get());
+        c->OMSetDepthStencilState(p->m_depth_stencil_state.Get(), 0);
+        
+        {
+            float blend_factors[] = { 0,0,0,0 };
+            c->OMSetBlendState(p->m_blend_state.Get(), &blend_factors[0], p->m_sample_mask);
+        }
+    }
 }
 	

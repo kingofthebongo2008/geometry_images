@@ -56,12 +56,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 					float color[4] = { 0.0f,0.0f,0.0f,0.0f };
 					context->ClearRenderTargetView(view.Get(), &color[0]);
 				}
-				
-				/*
-				dx11::render_target_view* v = { view.Get() };
-				context->OMSetRenderTargets(&v[0], 1, nullptr);
-				*/
-				
+
 				m_swap_chain->Present(0, 0);
 			}
 
