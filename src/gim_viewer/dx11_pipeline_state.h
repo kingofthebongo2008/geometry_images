@@ -34,6 +34,7 @@ namespace dx11
 		DXGI_FORMAT						m_rtv_formats[8];
 		DXGI_FORMAT						m_dsv_format;
 		DXGI_SAMPLE_DESC				m_sample_desc;
+        uint32_t                        m_sample_mask;
 	};
 
 	struct ID3D11GraphicsPipelineState : base::referenced_object
@@ -44,10 +45,7 @@ namespace dx11
 		ComPtr<ID3D11RasterizerState1>	m_rasterizer_state;
 		ComPtr<ID3D11InputLayout>		m_input_layout;
 		ComPtr<ID3D11DepthStencilState>	m_depth_stencil_state;
+        uint32_t                        m_sample_mask;
 	};
-
-	using graphics_pipeline_state_ptr = base::intrusive_ptr<ID3D11GraphicsPipelineState>;
-
-
 
 }
