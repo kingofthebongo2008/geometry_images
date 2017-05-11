@@ -11,7 +11,7 @@ using namespace winrt::Windows::UI::Core;
 using namespace winrt::Windows::ApplicationModel::Core;
 using namespace winrt::Windows::ApplicationModel::Activation;
 
-#include "dx11_helpers.h"
+#include "dx12_helpers.h"
 #include "dxgi_helpers.h"
 #include "graphics_helpers.h"
 #include "com_error.h"
@@ -29,7 +29,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	{
 		m_activated			= v.Activated(winrt::auto_revoke, { this, &ViewProvider::OnActivated });
 
-		m_device			= dx11::make_device();
+		m_device			= dx12::make_device();
 		m_factory			= dxgi::make_dxgi_factory();
 	}
 
@@ -45,6 +45,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		{
 			CoreWindow::GetForCurrentThread().Dispatcher().ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
+            /*
 			auto back_buffer = graphics::get_back_buffer(m_swap_chain.Get(), 0);
 			auto view		 = dx11::make_render_target_view(m_device.Get(), back_buffer.Get());
 			auto context	 = dx11::make_device_immediate_context(m_device.Get());
@@ -59,7 +60,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
 				m_swap_chain->Present(0, 0);
 			}
-
+            */
 		}
 	}
 
@@ -97,7 +98,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	CoreWindow::SizeChanged_revoker				m_size_changed;
 	CoreApplicationView::Activated_revoker		m_activated;
 
-	dx11::device_ptr							m_device;
+	dx12::device_ptr							m_device;
 	dxgi::factory_ptr							m_factory;
 	dxgi::swap_chain_ptr						m_swap_chain;
 };

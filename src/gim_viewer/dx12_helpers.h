@@ -31,15 +31,17 @@ namespace dx12
 	using command_queue				= ID3D12CommandQueue;
 	using command_queue_ptr			= ComPtr<ID3D12CommandQueue>;
 
-	heap_ptr   create_upload_constant_heap(device* d, size_t size);
-	heap_ptr   create_upload_buffer_heap(device* d, size_t size);
+	heap_ptr   make_upload_constant_heap(device* d, size_t size);
+	heap_ptr   make_upload_buffer_heap(device* d, size_t size);
 
-	fence_ptr  create_fence(device* d, uint64_t initial_value = 0);
+	fence_ptr  make_fence(device* d, uint64_t initial_value = 0);
 	
-	command_queue_ptr create_direct_command_queue(device* d);
-	command_queue_ptr create_copy_command_queue(device* d);
-	command_queue_ptr create_compute_command_queue(device* d);
+	command_queue_ptr make_direct_command_queue(device* d);
+	command_queue_ptr make_copy_command_queue(device* d);
+	command_queue_ptr make_compute_command_queue(device* d);
 
-	command_queue_ptr create_command_allocator(device* d);
+	command_queue_ptr make_command_allocator(device* d);
+
+    device_ptr        make_device();
 
 }
