@@ -44,7 +44,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
 	void Run()
 	{
-
+		WaitForGpu();
 		while (m_window_running)
 		{
 			CoreWindow::GetForCurrentThread().Dispatcher().ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
@@ -78,6 +78,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		m_size_changed		= w.SizeChanged(winrt::auto_revoke, { this, &ViewProvider::OnWindowSizeChanged });
 
 		m_swap_chain		= dxgi::make_swap_chain(m_factory.Get(), m_direct_queue.Get(), w, w.Bounds().Width, w.Bounds().Height);
+		m_frame_index		= m_swap_chain->GetCurrentBackBufferIndex();
 	}
 
 	void OnWindowClosed(const CoreWindow&w, const CoreWindowEventArgs& a)
@@ -92,6 +93,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
 	void OnWindowSizeChanged(const CoreWindow& w, const WindowSizeChangedEventArgs& a)
 	{
+		WaitForGpu();
 		DXGI_SWAP_CHAIN_DESC1 desc;
 		throw_if_failed(m_swap_chain->GetDesc1(&desc));
 		throw_if_failed(m_swap_chain->ResizeBuffers(desc.BufferCount, a.Size().Width, a.Size().Height, desc.Format, desc.Flags));
@@ -102,12 +104,34 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		//schedule signal to the command queue
 		throw_if_failed(m_direct_queue->Signal(m_direct_queue_fence.Get(), m_direct_queue_fence_values[m_frame_index]));
 
+		// Wait until the fence has been processed.
+		m_direct_queue_fence->SetEventOnCompletion(m_direct_queue_fence_values[m_frame_index], m_direct_queue_fence_event);
+		//todo: check
+		WaitForSingleObjectEx(m_direct_queue_fence_event, INFINITE, FALSE);
 
+		// Increment the fence value for the current frame.
+		m_direct_queue_fence_values[m_frame_index]++;
 	}
 
 	void MoveToNextFrame()
 	{
+		const uint64_t fence_value = m_direct_queue_fence_values[m_frame_index];
+		
+		//schedule signal to the command queue
+		throw_if_failed(m_direct_queue->Signal(m_direct_queue_fence.Get(), fence_value));
 
+		//update frame index
+		m_frame_index = m_swap_chain->GetCurrentBackBufferIndex();
+
+		// If the next frame is not ready to be rendered yet, wait until it is ready.
+		if (m_direct_queue_fence->GetCompletedValue() < m_direct_queue_fence_values[m_frame_index])
+		{
+			m_direct_queue_fence->SetEventOnCompletion(fence_value, m_direct_queue_fence_event);
+			//todo: check for result
+			WaitForSingleObjectEx(m_direct_queue_fence_event, INFINITE, FALSE);
+		}
+
+		m_direct_queue_fence_values[m_frame_index] = fence_value + 1;
 	}
 
 	bool m_window_running = true;
@@ -122,6 +146,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	dx12::direct_command_allocator_ptr			m_direct_allocators[2];
 	dx12::fence_ptr								m_direct_queue_fence;
 	uint64_t									m_direct_queue_fence_values[2] = {};
+	dx12::fence_event							m_direct_queue_fence_event;
 
 	dxgi::factory_ptr							m_factory;
 	dxgi::swap_chain_ptr						m_swap_chain;

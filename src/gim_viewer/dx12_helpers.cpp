@@ -5,6 +5,24 @@
 
 namespace dx12
 {
+	fence_event::fence_event()
+	{
+		m_handle = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+
+		if (m_handle == nullptr)
+		{
+			throw_if_failed(HRESULT_FROM_WIN32(GetLastError()));
+		}
+	}
+
+	fence_event::~fence_event()
+	{
+		if (m_handle)
+		{
+			CloseHandle(m_handle);
+		}
+	}
+
 	device_ptr make_device()
 	{
 		device_ptr r;

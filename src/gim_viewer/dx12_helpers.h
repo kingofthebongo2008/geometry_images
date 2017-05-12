@@ -5,6 +5,34 @@
 
 namespace dx12
 {
+	class moveable
+	{
+		protected:
+
+		moveable() = default;
+		~moveable() = default;
+	
+
+		private:
+			moveable(const moveable&) = delete;
+			moveable& operator=(const moveable&) = delete;
+	};
+
+	class fence_event : moveable
+	{
+		public:
+
+		fence_event();
+		~fence_event();
+		operator HANDLE() const { return m_handle;}
+		private:
+
+		HANDLE m_handle = 0;
+	};
+}
+
+namespace dx12
+{
 	using namespace Microsoft::WRL;
 
 	using device						= ID3D12Device1;
@@ -56,5 +84,4 @@ namespace dx12
 	copy_command_allocator_ptr			make_copy_command_allocator(device* d);
 
     device_ptr							make_device();
-
 }
