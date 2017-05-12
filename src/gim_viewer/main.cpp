@@ -35,6 +35,13 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		m_direct_allocators[1]  = dx12::make_direct_command_allocator(m_device.Get());
 		m_factory				= dxgi::make_dxgi_factory();
 		m_direct_queue_fence	= dx12::make_fence(m_device.Get(), m_direct_queue_fence_values[m_frame_index]);
+
+        m_direct_list[0]        = dx12::make_graphics_command_list(m_device.Get(), m_direct_allocators[0].Get());
+        m_direct_list[1]        = dx12::make_graphics_command_list(m_device.Get(), m_direct_allocators[1].Get());
+
+        throw_if_failed(m_direct_list[0]->Close());
+        throw_if_failed(m_direct_list[1]->Close());
+        
 	}
 
 	void Uninitialize() 
@@ -49,23 +56,24 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		{
 			CoreWindow::GetForCurrentThread().Dispatcher().ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
-            /*
-			auto back_buffer = graphics::get_back_buffer(m_swap_chain.Get(), 0);
-			auto view		 = dx11::make_render_target_view(m_device.Get(), back_buffer.Get());
-			auto context	 = dx11::make_device_immediate_context(m_device.Get());
+            {
+                throw_if_failed(m_direct_allocators[m_frame_index]->Reset());
+                m_direct_list[m_frame_index]->Reset(m_direct_allocators[m_frame_index].Get(), nullptr);
 
-			{
-				context->ClearState();
-				
-				{
-					float color[4] = { 0.0f,0.0f,0.0f,0.0f };
-					context->ClearRenderTargetView(view.Get(), &color[0]);
-				}
 
-				m_swap_chain->Present(0, 0);
-			}
-            */
+                m_direct_list[m_frame_index]->Close();
+            }
+
+            {
+                dx12::command_list* lists[] = { m_direct_list[m_frame_index].Get() };
+                m_direct_queue->ExecuteCommandLists(1, &lists[0]);
+            }
+
+            m_swap_chain->Present(0, 0);
+            MoveToNextFrame();
 		}
+
+        WaitForGpu();
 	}
 
 	void Load(winrt::hstring_view h)
@@ -144,6 +152,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	dx12::device_ptr							m_device;
 	dx12::direct_command_queue_ptr				m_direct_queue;
 	dx12::direct_command_allocator_ptr			m_direct_allocators[2];
+    dx12::graphics_command_list_ptr   			m_direct_list[2];
 	dx12::fence_ptr								m_direct_queue_fence;
 	uint64_t									m_direct_queue_fence_values[2] = {};
 	dx12::fence_event							m_direct_queue_fence_event;
