@@ -83,5 +83,8 @@ namespace dx12
 	compute_command_allocator_ptr		make_compute_command_allocator(device* d);
 	copy_command_allocator_ptr			make_copy_command_allocator(device* d);
 
+    graphics_command_list_ptr           make_graphics_command_list(device*d, direct_command_allocator* r);
+    
+
     device_ptr							make_device();
 }

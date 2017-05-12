@@ -116,8 +116,16 @@ namespace dx12
 	copy_command_allocator_ptr make_copy_command_allocator(device* d)
 	{
 		copy_command_allocator_ptr r;
+
 		throw_if_failed(d->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COPY, IID_PPV_ARGS(&r)));
 		return r;
 	}
+
+    graphics_command_list_ptr make_graphics_command_list(device*d, direct_command_allocator* alloc)
+    {
+        graphics_command_list_ptr r;
+        throw_if_failed(d->CreateCommandList(0,D3D12_COMMAND_LIST_TYPE_DIRECT, alloc, nullptr, IID_PPV_ARGS(&r)));
+        return r;
+    }
 }
 
