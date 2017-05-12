@@ -29,9 +29,12 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	{
 		m_activated			= v.Activated(winrt::auto_revoke, { this, &ViewProvider::OnActivated });
 
-		m_device			= dx12::make_device();
-		m_direct_queue		= dx12::make_direct_command_queue(m_device.Get());
-		m_factory			= dxgi::make_dxgi_factory();
+		m_device				= dx12::make_device();
+		m_direct_queue			= dx12::make_direct_command_queue(m_device.Get());
+		m_direct_allocators[0]	= dx12::make_direct_command_allocator(m_device.Get());
+		m_direct_allocators[1]  = dx12::make_direct_command_allocator(m_device.Get());
+		m_factory				= dxgi::make_dxgi_factory();
+		m_direct_queue_fence	= dx12::make_fence(m_device.Get(), m_direct_queue_fence_values[m_frame_index]);
 	}
 
 	void Uninitialize() 
@@ -94,13 +97,32 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		throw_if_failed(m_swap_chain->ResizeBuffers(desc.BufferCount, a.Size().Width, a.Size().Height, desc.Format, desc.Flags));
 	}
 
+	void WaitForGpu()
+	{
+		//schedule signal to the command queue
+		throw_if_failed(m_direct_queue->Signal(m_direct_queue_fence.Get(), m_direct_queue_fence_values[m_frame_index]));
+
+
+	}
+
+	void MoveToNextFrame()
+	{
+
+	}
+
 	bool m_window_running = true;
 	CoreWindow::Closed_revoker					m_closed;
 	CoreWindow::SizeChanged_revoker				m_size_changed;
 	CoreApplicationView::Activated_revoker		m_activated;
 
+	uint64_t									m_frame_index = 0;
+
 	dx12::device_ptr							m_device;
 	dx12::direct_command_queue_ptr				m_direct_queue;
+	dx12::direct_command_allocator_ptr			m_direct_allocators[2];
+	dx12::fence_ptr								m_direct_queue_fence;
+	uint64_t									m_direct_queue_fence_values[2] = {};
+
 	dxgi::factory_ptr							m_factory;
 	dxgi::swap_chain_ptr						m_swap_chain;
 };

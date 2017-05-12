@@ -42,19 +42,19 @@ namespace dx12
 	using copy_command_queue			= command_queue;
 	using copy_command_queue_ptr		= command_queue_ptr;
 
-	heap_ptr						make_upload_constant_heap(device* d, size_t size);
-	heap_ptr						make_upload_buffer_heap(device* d, size_t size);
+	heap_ptr							make_upload_constant_heap(device* d, size_t size);
+	heap_ptr							make_upload_buffer_heap(device* d, size_t size);
 
-	fence_ptr						make_fence(device* d, uint64_t initial_value = 0);
+	fence_ptr							make_fence(device* d, uint64_t initial_value = 0);
 	
-	direct_command_queue_ptr		make_direct_command_queue(device* d);
-	copy_command_queue_ptr			make_copy_command_queue(device* d);
-	compute_command_queue_ptr		make_compute_command_queue(device* d);
+	direct_command_queue_ptr			make_direct_command_queue(device* d);
+	copy_command_queue_ptr				make_copy_command_queue(device* d);
+	compute_command_queue_ptr			make_compute_command_queue(device* d);
 
-	direct_command_allocator_ptr	make_direct_command_allocator(device* d);
-	compute_command_allocator_ptr	make_compute_command_allocator(device* d);
-	copy_command_allocator_ptr		make_copy_command_allocator(device* d);
+	direct_command_allocator_ptr		make_direct_command_allocator(device* d);
+	compute_command_allocator_ptr		make_compute_command_allocator(device* d);
+	copy_command_allocator_ptr			make_copy_command_allocator(device* d);
 
-    device_ptr						make_device();
+    device_ptr							make_device();
 
 }
