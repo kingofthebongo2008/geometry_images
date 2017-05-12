@@ -30,6 +30,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		m_activated			= v.Activated(winrt::auto_revoke, { this, &ViewProvider::OnActivated });
 
 		m_device			= dx12::make_device();
+		m_direct_queue		= dx12::make_direct_command_queue(m_device.Get());
 		m_factory			= dxgi::make_dxgi_factory();
 	}
 
@@ -73,7 +74,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 		m_closed			= w.Closed(winrt::auto_revoke, { this, &ViewProvider::OnWindowClosed });
 		m_size_changed		= w.SizeChanged(winrt::auto_revoke, { this, &ViewProvider::OnWindowSizeChanged });
 
-		m_swap_chain		= dxgi::make_swap_chain(m_factory.Get(), m_device.Get(), w, w.Bounds().Width, w.Bounds().Height);
+		m_swap_chain		= dxgi::make_swap_chain(m_factory.Get(), m_direct_queue.Get(), w, w.Bounds().Width, w.Bounds().Height);
 	}
 
 	void OnWindowClosed(const CoreWindow&w, const CoreWindowEventArgs& a)
@@ -99,6 +100,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	CoreApplicationView::Activated_revoker		m_activated;
 
 	dx12::device_ptr							m_device;
+	dx12::direct_command_queue_ptr				m_direct_queue;
 	dxgi::factory_ptr							m_factory;
 	dxgi::swap_chain_ptr						m_swap_chain;
 };
