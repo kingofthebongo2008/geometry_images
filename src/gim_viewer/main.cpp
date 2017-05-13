@@ -16,6 +16,8 @@ using namespace winrt::Windows::ApplicationModel::Activation;
 #include "graphics_helpers.h"
 #include "com_error.h"
 
+#include <pix3.h>
+
 class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFrameworkViewSource>
 {
 	public:
@@ -66,11 +68,12 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
             }
 
             {
+                PIXScopedEvent(m_direct_queue.Get(), PIX_COLOR_INDEX(0), L"Execute Command Lists");
                 dx12::command_list* lists[] = { m_direct_list[m_frame_index].Get() };
                 m_direct_queue->ExecuteCommandLists(1, &lists[0]);
             }
 
-            m_swap_chain->Present(0, 0);
+            m_swap_chain->Present(1, 0);
             MoveToNextFrame();
 		}
 
@@ -110,6 +113,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
 	void WaitForGpu()
 	{
+        PIXScopedEvent(m_direct_queue.Get(), PIX_COLOR_INDEX(0), L"Wait for GPU");
 		//schedule signal to the command queue
 		throw_if_failed(m_direct_queue->Signal(m_direct_queue_fence.Get(), m_direct_queue_fence_values[m_frame_index]));
 
@@ -124,6 +128,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
 	void MoveToNextFrame()
 	{
+        PIXScopedEvent(m_direct_queue.Get(), PIX_COLOR_INDEX(0), L"Move To Next Frame");
 		const uint64_t fence_value = m_direct_queue_fence_values[m_frame_index];
 		
 		//schedule signal to the command queue
