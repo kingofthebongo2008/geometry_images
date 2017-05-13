@@ -38,8 +38,14 @@ namespace dx12
 	using device						= ID3D12Device1;
 	using device_ptr					= ComPtr<ID3D12Device1>;
 
+    using resource                      = ID3D12Resource;
+    using resource_ptr                  = ComPtr<ID3D12Resource>;
+
 	using heap							= ID3D12Heap;
 	using heap_ptr						= ComPtr<ID3D12Heap>;
+
+    using descriptor_heap               = ID3D12DescriptorHeap;
+    using descriptor_heap_ptr           = ComPtr<ID3D12DescriptorHeap>;
 
 	using fence							= ID3D12Fence;
 	using fence_ptr						= ComPtr<ID3D12Fence>;
@@ -86,5 +92,9 @@ namespace dx12
     graphics_command_list_ptr           make_graphics_command_list(device*d, direct_command_allocator* r);
     
 
+    descriptor_heap_ptr make_shader_resources_descriptor_heap(device* d, uint32_t descriptor_count);
+    descriptor_heap_ptr make_render_targets_descriptor_heap(device* d, uint32_t descriptor_count);
+    descriptor_heap_ptr make_depth_stencil_descriptor_heap(device* d, uint32_t descriptor_count);
+ 
     device_ptr							make_device();
 }

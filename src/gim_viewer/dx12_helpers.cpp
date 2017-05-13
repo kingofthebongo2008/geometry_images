@@ -25,8 +25,27 @@ namespace dx12
 
 	device_ptr make_device()
 	{
-		device_ptr r;
-		throw_if_failed(D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&r)));
+#if defined(_DEBUG)
+        // Enable the debug layer (requires the Graphics Tools "optional feature").
+        //
+        // NOTE: Enabling the debug layer after device creation will invalidate the active device.
+        bool debugDXGI = false;
+        {
+            ComPtr<ID3D12Debug> debugController;
+            if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(debugController.GetAddressOf()))))
+            {
+                debugController->EnableDebugLayer();
+            }
+            else
+            {
+                OutputDebugStringA("WARNING: Direct3D Debug Device is not available\n");
+            }
+        }
+
+#endif
+        device_ptr r;
+        throw_if_failed(D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&r)));
+
 		return r;
 	}
 
@@ -125,6 +144,39 @@ namespace dx12
     {
         graphics_command_list_ptr r;
         throw_if_failed(d->CreateCommandList(0,D3D12_COMMAND_LIST_TYPE_DIRECT, alloc, nullptr, IID_PPV_ARGS(&r)));
+        return r;
+    }
+
+    descriptor_heap_ptr make_shader_resources_descriptor_heap(device* d, uint32_t descriptor_count)
+    {
+        descriptor_heap_ptr r;
+        D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+        desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+        desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+        desc.NumDescriptors = descriptor_count;
+        throw_if_failed(d->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&r)));
+        return r;
+    }
+
+    descriptor_heap_ptr make_render_targets_descriptor_heap(device* d, uint32_t descriptor_count)
+    {
+        descriptor_heap_ptr r;
+        D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+        desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+        desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+        desc.NumDescriptors = descriptor_count;
+        throw_if_failed(d->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&r)));
+        return r;
+    }
+
+    descriptor_heap_ptr make_depth_stencil_descriptor_heap(device* d, uint32_t descriptor_count)
+    {
+        descriptor_heap_ptr r;
+        D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+        desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+        desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+        desc.NumDescriptors = descriptor_count;
+        throw_if_failed(d->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&r)));
         return r;
     }
 }

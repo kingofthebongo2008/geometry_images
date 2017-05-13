@@ -59,6 +59,9 @@
       <AdditionalIncludeDirectories>..\..\3rdparty\cppwinrt\10.0.15063.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='debug|x64'">WindowsApp.lib;%(AdditionalDependencies);d3d12.lib</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\gim_viewer\com_error.h" />
