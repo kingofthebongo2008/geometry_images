@@ -4,14 +4,14 @@
 
 namespace back_buffer
 {
-	resource get_back_buffer(dxgi::swap_chain* s, uint32_t buffer)
+	resource get_back_buffer(dxgi::swap_chain* s, uint64_t buffer)
 	{
 		resource r;
-		throw_if_failed( s->GetBuffer(buffer, IID_PPV_ARGS(&r.m_resource)));
+		throw_if_failed( s->GetBuffer(static_cast<uint32_t>(buffer), IID_PPV_ARGS(&r.m_resource)));
 		return r;
 	}
 
-	dx12::cpu_descriptor_handle make_back_buffer_render_target_view(const resource* r, dx12::device* d, uint32_t buffer_index, dx12::descriptor_heap* frame_heap)
+	dx12::cpu_descriptor_handle make_back_buffer_render_target_view(const resource* r, dx12::device* d, uint64_t buffer_index, dx12::descriptor_heap* frame_heap)
 	{
 		const auto type					= frame_heap->GetDesc().Type;
 		const auto increment			= d->GetDescriptorHandleIncrementSize(type);
