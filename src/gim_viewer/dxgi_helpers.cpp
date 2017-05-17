@@ -45,7 +45,7 @@ namespace dxgi
 		
 		throw_if_failed(f->CreateSwapChainForCoreWindow(d, reinterpret_cast<IUnknown*>(winrt::get_abi(w)) , &desc, nullptr, r.GetAddressOf()));
 
-		Microsoft::WRL::ComPtr<IDXGISwapChain3> result2;
+		Microsoft::WRL::ComPtr<IDXGISwapChain4> result2;
 		throw_if_failed(r.As(&result2));
 		
 		return result2;

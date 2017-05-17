@@ -92,9 +92,9 @@ namespace dx12
     graphics_command_list_ptr           make_graphics_command_list(device*d, direct_command_allocator* r);
     
 
-    descriptor_heap_ptr make_shader_resources_descriptor_heap(device* d, uint32_t descriptor_count);
-    descriptor_heap_ptr make_render_targets_descriptor_heap(device* d, uint32_t descriptor_count);
-    descriptor_heap_ptr make_depth_stencil_descriptor_heap(device* d, uint32_t descriptor_count);
+    descriptor_heap_ptr					make_shader_resources_descriptor_heap(device* d, uint32_t descriptor_count);
+    descriptor_heap_ptr					make_render_targets_descriptor_heap(device* d, uint32_t descriptor_count);
+    descriptor_heap_ptr					make_depth_stencil_descriptor_heap(device* d, uint32_t descriptor_count);
  
     device_ptr							make_device();
 }

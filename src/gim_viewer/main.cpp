@@ -62,8 +62,6 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
             {
                 throw_if_failed(m_direct_allocators[m_frame_index]->Reset());
                 m_direct_list[m_frame_index]->Reset(m_direct_allocators[m_frame_index].Get(), nullptr);
-
-
                 m_direct_list[m_frame_index]->Close();
             }
 
@@ -164,7 +162,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	dx12::fence_event							m_direct_queue_fence_event;
 
     dx12::descriptor_heap_ptr                   m_heap_rtv;
-    dx12::resource_ptr                          m_back_buffer[2];
+    dx12::resource_ptr                          m_back_buffer;
 
     dxgi::factory_ptr							m_factory;
 	dxgi::swap_chain_ptr						m_swap_chain;

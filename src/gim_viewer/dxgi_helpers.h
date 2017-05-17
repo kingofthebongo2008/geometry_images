@@ -24,8 +24,8 @@ namespace dxgi
 	using factory			= IDXGIFactory5;
 	using factory_ptr		= ComPtr<IDXGIFactory5>;
 	
-	using swap_chain		= IDXGISwapChain3;
-	using swap_chain_ptr	= ComPtr<IDXGISwapChain3>;
+	using swap_chain		= IDXGISwapChain4;
+	using swap_chain_ptr	= ComPtr<IDXGISwapChain4>;
 
 	factory_ptr make_dxgi_factory();
 
