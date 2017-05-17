@@ -76,6 +76,11 @@ namespace dx12
 	using copy_command_queue			= command_queue;
 	using copy_command_queue_ptr		= command_queue_ptr;
 
+	using cpu_descriptor_handle			= D3D12_CPU_DESCRIPTOR_HANDLE;
+	using gpu_descriptor_handle			= D3D12_GPU_DESCRIPTOR_HANDLE;
+
+	using resource_barrier				= D3D12_RESOURCE_BARRIER;
+
 	heap_ptr							make_upload_constant_heap(device* d, size_t size);
 	heap_ptr							make_upload_buffer_heap(device* d, size_t size);
 
@@ -97,4 +102,7 @@ namespace dx12
     descriptor_heap_ptr					make_depth_stencil_descriptor_heap(device* d, uint32_t descriptor_count);
  
     device_ptr							make_device();
+
+
+	void set_resource_barrier(graphics_command_list* r, resource_barrier b);
 }

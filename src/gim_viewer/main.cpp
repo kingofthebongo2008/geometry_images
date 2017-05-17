@@ -14,6 +14,7 @@ using namespace winrt::Windows::ApplicationModel::Activation;
 #include "dx12_helpers.h"
 #include "dxgi_helpers.h"
 #include "graphics_helpers.h"
+#include "back_buffer.h"
 #include "com_error.h"
 
 #include <pix3.h>
@@ -44,7 +45,12 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
         throw_if_failed(m_direct_list[0]->Close());
         throw_if_failed(m_direct_list[1]->Close());
 
-        m_heap_rtv              = dx12::make_render_targets_descriptor_heap(m_device.Get(), 2);
+		{
+			const auto frame_count			= 2;
+			const auto render_target_count	= 1;
+			const auto descriptor_count		= frame_count * render_target_count;
+			m_frame_descriptor_heap = dx12::make_render_targets_descriptor_heap(m_device.Get(), descriptor_count);
+		}
 	}
 
 	void Uninitialize() 
@@ -62,11 +68,33 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
             {
                 throw_if_failed(m_direct_allocators[m_frame_index]->Reset());
                 m_direct_list[m_frame_index]->Reset(m_direct_allocators[m_frame_index].Get(), nullptr);
-                m_direct_list[m_frame_index]->Close();
             }
+
+			{
+				auto list = m_direct_list[m_frame_index].Get();
+
+				PIXScopedEvent(list, PIX_COLOR_INDEX(0), L"Swap Chain");
+
+				auto back_buffer = back_buffer::get_back_buffer(m_swap_chain.Get(), m_frame_index);
+				auto rtv		 = back_buffer::make_back_buffer_render_target_view(&back_buffer, m_device.Get(), m_frame_index, m_frame_descriptor_heap.Get());
+
+				{
+					dx12::set_resource_barrier(list, back_buffer::render_target_barrier(&back_buffer));
+				}
+
+				{
+					float c[] = { 1,0,0,0 };
+					list->ClearRenderTargetView(rtv, &c[0], 0, nullptr);
+				}
+
+				{
+					dx12::set_resource_barrier(list, back_buffer::present_barrier(&back_buffer));
+				}
+			}
 
             {
                 PIXScopedEvent(m_direct_queue.Get(), PIX_COLOR_INDEX(0), L"Execute Command Lists");
+				m_direct_list[m_frame_index]->Close();
                 dx12::command_list* lists[] = { m_direct_list[m_frame_index].Get() };
                 m_direct_queue->ExecuteCommandLists(1, &lists[0]);
             }
@@ -161,7 +189,7 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 	uint64_t									m_direct_queue_fence_values[2] = {};
 	dx12::fence_event							m_direct_queue_fence_event;
 
-    dx12::descriptor_heap_ptr                   m_heap_rtv;
+    dx12::descriptor_heap_ptr                   m_frame_descriptor_heap;
     dx12::resource_ptr                          m_back_buffer;
 
     dxgi::factory_ptr							m_factory;

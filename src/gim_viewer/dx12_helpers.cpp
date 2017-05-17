@@ -41,7 +41,6 @@ namespace dx12
                 OutputDebugStringA("WARNING: Direct3D Debug Device is not available\n");
             }
         }
-
 #endif
         device_ptr r;
         throw_if_failed(D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&r)));
@@ -179,5 +178,10 @@ namespace dx12
         throw_if_failed(d->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&r)));
         return r;
     }
+
+	void set_resource_barrier(graphics_command_list* r, resource_barrier b)
+	{
+		r->ResourceBarrier(1, &b);
+	}
 }
 
