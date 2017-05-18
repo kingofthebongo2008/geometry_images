@@ -190,5 +190,12 @@ namespace dx12
 		throw_if_failed(D3D12CreateRootSignatureDeserializer(byte_code, byte_code_size, IID_PPV_ARGS(&result)));
 		return result;
 	}
+
+	root_signature_ptr make_root_signature(device* d, const void* byte_code, size_t byte_code_size)
+	{
+		root_signature_ptr r;
+		throw_if_failed(d->CreateRootSignature(0, byte_code, byte_code_size, IID_PPV_ARGS(&r)));
+		return r;
+	}
 }
 

@@ -109,6 +109,7 @@ namespace dx12
     device_ptr							make_device();
 
 	root_signature_deserializer_ptr		make_root_signature_deserializer(const void* byte_code, size_t byte_code_size);
+	root_signature_ptr					make_root_signature(device* d, const void* byte_code, size_t byte_code_size);
 
 
 	void set_resource_barrier(graphics_command_list* r, resource_barrier b);
