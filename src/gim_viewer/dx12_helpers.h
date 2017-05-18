@@ -81,6 +81,12 @@ namespace dx12
 
 	using resource_barrier				= D3D12_RESOURCE_BARRIER;
 
+	using root_signature_deserializer		= ID3D12RootSignatureDeserializer;
+	using root_signature_deserializer_ptr	= ComPtr<ID3D12RootSignatureDeserializer>;
+
+	using root_signature				= ID3D12RootSignature;
+	using root_signature_ptr			= ComPtr<ID3D12RootSignature>;
+
 	heap_ptr							make_upload_constant_heap(device* d, size_t size);
 	heap_ptr							make_upload_buffer_heap(device* d, size_t size);
 
@@ -96,12 +102,13 @@ namespace dx12
 
     graphics_command_list_ptr           make_graphics_command_list(device*d, direct_command_allocator* r);
     
-
     descriptor_heap_ptr					make_shader_resources_descriptor_heap(device* d, uint32_t descriptor_count);
     descriptor_heap_ptr					make_render_targets_descriptor_heap(device* d, uint32_t descriptor_count);
     descriptor_heap_ptr					make_depth_stencil_descriptor_heap(device* d, uint32_t descriptor_count);
  
     device_ptr							make_device();
+
+	root_signature_deserializer_ptr		make_root_signature_deserializer(const void* byte_code, size_t byte_code_size);
 
 
 	void set_resource_barrier(graphics_command_list* r, resource_barrier b);

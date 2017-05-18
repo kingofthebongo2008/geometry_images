@@ -183,5 +183,12 @@ namespace dx12
 	{
 		r->ResourceBarrier(1, &b);
 	}
+
+	root_signature_deserializer_ptr make_root_signature_deserializer(const void* byte_code, size_t byte_code_size)
+	{
+		root_signature_deserializer_ptr result;
+		throw_if_failed(D3D12CreateRootSignatureDeserializer(byte_code, byte_code_size, IID_PPV_ARGS(&result)));
+		return result;
+	}
 }
 
