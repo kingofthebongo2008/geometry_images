@@ -69,6 +69,11 @@
     <ClInclude Include="..\..\src\gim_viewer\back_buffer.h" />
     <ClInclude Include="..\..\src\gim_viewer\dx12_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\dxgi_helpers.h" />
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\bunny_pixel.h" />
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\bunny_vertex.h" />
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_depth.h" />
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_light.h" />
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\root_signature.h" />
     <ClInclude Include="..\..\src\gim_viewer\graphics_helpers.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\intrusive_ptr.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\non_copyable.h" />
@@ -79,6 +84,8 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="..\..\src\gim_viewer\gpu_code\geometry.hlsli" />
+    <None Include="..\..\src\gim_viewer\gpu_code\root_signature.hlsli" />
     <None Include="gim_viewer_temporary_key.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -97,12 +104,65 @@
     <ClCompile Include="..\..\src\gim_viewer\dx12_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\dxgi_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\back_buffer.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\bunny_pixel.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\bunny_vertex.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_depth.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_light.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\root_signature.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\graphics_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\base\referenced_object.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\main.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\src\gim_viewer\gpu_code\bunny_pixel.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='debug|x64'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Qstrip_priv /Qstrip_rootsignature /Qstrip_reflect /Qstrip_debug %(AdditionalOptions)</AdditionalOptions>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">g_bunny_pixel</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='debug|x64'">autogen/bunny_pixel.h</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_bunny_pixel</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">autogen/bunny_pixel.h</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="..\..\src\gim_viewer\gpu_code\bunny_vertex.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='debug|x64'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Qstrip_priv /Qstrip_rootsignature /Qstrip_reflect /Qstrip_debug %(AdditionalOptions)</AdditionalOptions>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">g_bunny_vertex</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='debug|x64'">autogen/bunny_vertex.h</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_bunny_vertex</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">autogen/bunny_vertex.h</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="..\..\src\gim_viewer\gpu_code\root_singature.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='debug|x64'">rootsig_1.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">rootsig_1.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='debug|x64'">RootSignature</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RootSignature</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">MyRS1</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MyRS1</EntryPointName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_root_signature</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">autogen/root_signature_code.h</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">g_root_signature</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='debug|x64'">autogen/root_signature_code.h</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

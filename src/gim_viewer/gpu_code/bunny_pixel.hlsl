@@ -18,15 +18,7 @@ float4 checker_board(float2 uv)
     return float4(checker, checker, checker, 1.0f);
 }
 
-SamplerState g_linear       : register(s0)
-{
-    Filter = MIN_MAG_MIP_LINEAR;
-    AddressU = Clamp;
-    AddressV = Clamp;
-};
-
-
-#include "root_signature.h"
+#include "root_signature.hlsli"
 [RootSignature( MyRS1 ) ]
 float4 main( interpolants r ) : SV_Target0
 {

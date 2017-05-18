@@ -197,5 +197,12 @@ namespace dx12
 		throw_if_failed(d->CreateRootSignature(0, byte_code, byte_code_size, IID_PPV_ARGS(&r)));
 		return r;
 	}
+
+	pipeline_state_ptr make_graphics_pipeline_state(device* d, const graphics_pipeline_state_desc* g)
+	{
+		pipeline_state_ptr r;
+		throw_if_failed(d->CreateGraphicsPipelineState(g, IID_PPV_ARGS(&r)));
+		return r;
+	}
 }
 

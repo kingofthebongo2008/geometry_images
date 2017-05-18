@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.15063.0\x86\fxc.exe" /nologo /E MyRS1 /T rootsig_1_1 /Fo "I:\git\geometry_images\build\gim_viewer\bin\x64\debug\gim_viewer\root_singature.cso" /Od /Zi root_singature.hlsl

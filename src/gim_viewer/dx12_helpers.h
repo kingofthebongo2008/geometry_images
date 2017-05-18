@@ -87,6 +87,11 @@ namespace dx12
 	using root_signature				= ID3D12RootSignature;
 	using root_signature_ptr			= ComPtr<ID3D12RootSignature>;
 
+	using pipeline_state				= ID3D12PipelineState;
+	using pipeline_state_ptr			= ComPtr<ID3D12PipelineState>;
+
+	using graphics_pipeline_state_desc  = D3D12_GRAPHICS_PIPELINE_STATE_DESC;
+
 	heap_ptr							make_upload_constant_heap(device* d, size_t size);
 	heap_ptr							make_upload_buffer_heap(device* d, size_t size);
 
@@ -110,6 +115,8 @@ namespace dx12
 
 	root_signature_deserializer_ptr		make_root_signature_deserializer(const void* byte_code, size_t byte_code_size);
 	root_signature_ptr					make_root_signature(device* d, const void* byte_code, size_t byte_code_size);
+
+	pipeline_state_ptr					make_graphics_pipeline_state(device* d, const graphics_pipeline_state_desc* g);
 
 
 	void set_resource_barrier(graphics_command_list* r, resource_barrier b);

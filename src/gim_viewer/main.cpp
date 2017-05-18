@@ -16,6 +16,7 @@ using namespace winrt::Windows::ApplicationModel::Activation;
 #include "graphics_helpers.h"
 #include "back_buffer.h"
 #include "com_error.h"
+#include "gpu_code_support/geometry_image_light.h"
 
 #include <pix3.h>
 
@@ -52,6 +53,8 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 			m_frame_descriptor_heap			= dx12::make_render_targets_descriptor_heap(m_device.Get(), descriptor_count);
 			m_depth_descriptor_heap			= dx12::make_depth_stencil_descriptor_heap(m_device.Get(), descriptor_count);
 		}
+
+		auto t = geometry_image_light::make(m_device.Get());
 	}
 
 	void Uninitialize() 

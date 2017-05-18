@@ -11,6 +11,12 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{dfba3b57-6816-4942-9ab6-28df1b0f84ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gpu_code">
+      <UniqueIdentifier>{27ae8f8a-fa2a-4787-b8ee-75bff3100955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gpu_code_support">
+      <UniqueIdentifier>{45e7a799-bed7-4805-84cc-284f85f9e3c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\gim_viewer\main.cpp" />
@@ -21,6 +27,22 @@
     <ClCompile Include="..\..\src\gim_viewer\com_error.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\graphics_helpers.cpp" />
     <ClCompile Include="..\..\src\gim_viewer\base\referenced_object.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\back_buffer.cpp" />
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\bunny_pixel.cpp">
+      <Filter>gpu_code_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\bunny_vertex.cpp">
+      <Filter>gpu_code_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_depth.cpp">
+      <Filter>gpu_code_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_light.cpp">
+      <Filter>gpu_code_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gim_viewer\gpu_code_support\root_signature.cpp">
+      <Filter>gpu_code_support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\gim_viewer\pch.h" />
@@ -32,6 +54,22 @@
     <ClInclude Include="..\..\src\gim_viewer\base\intrusive_ptr.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\non_copyable.h" />
     <ClInclude Include="..\..\src\gim_viewer\base\referenced_object.h" />
+    <ClInclude Include="..\..\src\gim_viewer\back_buffer.h" />
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\bunny_pixel.h">
+      <Filter>gpu_code_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\bunny_vertex.h">
+      <Filter>gpu_code_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_depth.h">
+      <Filter>gpu_code_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\geometry_image_light.h">
+      <Filter>gpu_code_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gim_viewer\gpu_code_support\root_signature.h">
+      <Filter>gpu_code_support</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\lock_screen_logo.scale-200.png">
@@ -62,5 +100,22 @@
   <ItemGroup>
     <None Include="gim_viewer_temporary_key.pfx" />
     <None Include="packages.config" />
+    <None Include="..\..\src\gim_viewer\gpu_code\root_signature.hlsli">
+      <Filter>gpu_code</Filter>
+    </None>
+    <None Include="..\..\src\gim_viewer\gpu_code\geometry.hlsli">
+      <Filter>gpu_code</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\src\gim_viewer\gpu_code\bunny_pixel.hlsl">
+      <Filter>gpu_code</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\src\gim_viewer\gpu_code\bunny_vertex.hlsl">
+      <Filter>gpu_code</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\src\gim_viewer\gpu_code\root_singature.hlsl">
+      <Filter>gpu_code</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

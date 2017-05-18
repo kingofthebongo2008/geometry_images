@@ -1,6 +1,9 @@
+#include "geometry.hlsli"
+
 struct interpolants
 {
     float4 position     : SV_POSITION0;
+	float2 uv           : texcoord0;
 };
 
 struct input
@@ -27,13 +30,14 @@ float4 project_vertex(float4 v_os, float4x4 world, float4x4 view, float4x4 persp
     return result;
 }
 
-#include "root_signature.h"
+#include "root_signature.hlsli"
 [RootSignature( MyRS1 ) ]
 interpolants main(input i)
 {
     interpolants r;
     
     r.position = project_vertex(float4(i.position, 1.0f), m_world, m_view, m_perspective);
+	r.uv = float2(0, 0);
 
     return r;
 }
