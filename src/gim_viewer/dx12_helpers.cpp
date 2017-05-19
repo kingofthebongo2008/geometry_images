@@ -179,6 +179,17 @@ namespace dx12
         return r;
     }
 
+	descriptor_heap_ptr make_sampler_descriptor_heap(device* d, uint32_t descriptor_count)
+	{
+		descriptor_heap_ptr r;
+		D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+		desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER;
+		desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		desc.NumDescriptors = descriptor_count;
+		throw_if_failed(d->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&r)));
+		return r;
+	}
+
 	void set_resource_barrier(graphics_command_list* r, resource_barrier b)
 	{
 		r->ResourceBarrier(1, &b);

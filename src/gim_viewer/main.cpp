@@ -52,6 +52,9 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 			const auto descriptor_count		= frame_count * render_target_count;
 			m_frame_descriptor_heap			= dx12::make_render_targets_descriptor_heap(m_device.Get(), descriptor_count);
 			m_depth_descriptor_heap			= dx12::make_depth_stencil_descriptor_heap(m_device.Get(), descriptor_count);
+
+			m_resources_heap				= dx12::make_shader_resources_descriptor_heap(m_device.Get(), 2);
+			m_samplers_heap					= dx12::make_sampler_descriptor_heap(m_device.Get(), 2);
 		}
 
 		auto t = geometry_image_light::make(m_device.Get());
@@ -199,6 +202,9 @@ class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFra
 
     dxgi::factory_ptr							m_factory;
 	dxgi::swap_chain_ptr						m_swap_chain;
+
+	dx12::descriptor_heap_ptr					m_resources_heap;
+	dx12::descriptor_heap_ptr					m_samplers_heap;
 };
 
 int32_t __stdcall wWinMain( HINSTANCE, HINSTANCE,PWSTR, int32_t )
