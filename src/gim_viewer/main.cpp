@@ -20,12 +20,15 @@ using namespace winrt::Windows::ApplicationModel::Activation;
 
 #include <pix3.h>
 
+#include <asset/geometry_image.h>
+
 class ViewProvider : public winrt::implements<ViewProvider, IFrameworkView, IFrameworkViewSource>
 {
 	public:
 
 	IFrameworkView CreateView()
 	{
+		asset::f();
 			return *this;
 	}
 

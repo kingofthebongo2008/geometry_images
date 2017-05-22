@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26510.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gim_viewer", "gim_viewer\gim_viewer.vcxproj", "{EA657E57-CF9D-4E03-B87B-9A693133390C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{37D96BB1-4005-408E-A251-1C20C6E6F24C} = {37D96BB1-4005-408E-A251-1C20C6E6F24C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asset", "asset\asset.vcxproj", "{37D96BB1-4005-408E-A251-1C20C6E6F24C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +22,10 @@ Global
 		{EA657E57-CF9D-4E03-B87B-9A693133390C}.release|x64.ActiveCfg = release|x64
 		{EA657E57-CF9D-4E03-B87B-9A693133390C}.release|x64.Build.0 = release|x64
 		{EA657E57-CF9D-4E03-B87B-9A693133390C}.release|x64.Deploy.0 = release|x64
+		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.debug|x64.ActiveCfg = Debug|x64
+		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.debug|x64.Build.0 = Debug|x64
+		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.release|x64.ActiveCfg = Release|x64
+		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
