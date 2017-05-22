@@ -7,10 +7,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\..\src\asset\geometry_image.cpp" />
+    <ClCompile Include="..\..\src\asset\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\..\src\asset\pch.h" />
+    <ClInclude Include="..\..\src\asset\targetver.h" />
+    <ClInclude Include="..\..\include\asset\geometry_image.h" />
   </ItemGroup>
 </Project>
