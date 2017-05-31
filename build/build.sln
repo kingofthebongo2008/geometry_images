@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gim_viewer", "gim_viewer\gi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asset", "asset\asset.vcxproj", "{37D96BB1-4005-408E-A251-1C20C6E6F24C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gim_asset_builder", "gim_asset_builder\gim_asset_builder.vcxproj", "{F02C7189-72E5-4CD7-8419-E2DF18D23E42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		debug|x64 = debug|x64
@@ -26,6 +28,10 @@ Global
 		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.debug|x64.Build.0 = debug|x64
 		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.release|x64.ActiveCfg = release|x64
 		{37D96BB1-4005-408E-A251-1C20C6E6F24C}.release|x64.Build.0 = release|x64
+		{F02C7189-72E5-4CD7-8419-E2DF18D23E42}.debug|x64.ActiveCfg = debug|x64
+		{F02C7189-72E5-4CD7-8419-E2DF18D23E42}.debug|x64.Build.0 = debug|x64
+		{F02C7189-72E5-4CD7-8419-E2DF18D23E42}.release|x64.ActiveCfg = release|x64
+		{F02C7189-72E5-4CD7-8419-E2DF18D23E42}.release|x64.Build.0 = release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
