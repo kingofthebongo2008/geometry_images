@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <memory>
 
+#include <asset/geometry_image_noncopyable.h>
+
 namespace asset
 {
 	struct vector3
@@ -23,14 +25,6 @@ namespace asset
 	{
 		float m_x;
 		float m_y;
-	};
-
-	struct non_copyable
-	{
-		private:
-
-		non_copyable(const non_copyable&o);
-		non_copyable& operator=(const non_copyable&o);
 	};
 
 	struct geometry_image : non_copyable

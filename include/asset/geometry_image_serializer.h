@@ -1,51 +1,38 @@
 #pragma once
 
-#include <cstdint>
+#include <windows.h>
 #include <memory>
+#include <asset/geometry_image_noncopyable.h>
 
 namespace asset
 {
-	struct vector3
+	struct file_handle_deleter
 	{
-		float m_x;
-		float m_y;
-		float m_z;
+		void operator() (void* f) const
+		{
+			CloseHandle(f);
+		}
 	};
 
-	struct point3
-	{
-		float m_x;
-		float m_y;
-		float m_z;
-	};
+	using file_handle = std::unique_ptr< void, file_handle_deleter>;
 
-	struct point2
+	class serializer : non_copyable
 	{
-		float m_x;
-		float m_y;
-	};
+	
 
-	struct non_copyable
-	{
+		public:
+
+		serializer(const wchar_t* name);
+		~serializer();
+
+		serializer(serializer&&o);
+		serializer& operator =(serializer&&o);
+
+		void write_bytes(const void* buffer, size_t buffer_size);
+
 		private:
 
-		non_copyable(const non_copyable&o);
-		non_copyable& operator=(const non_copyable&o);
+		file_handle m_file_handle;
 	};
-
-	struct geometry_image : non_copyable
-	{
-
-		std::unique_ptr<point3> m_position;
-		std::unique_ptr<point3> m_uv;
-		std::unique_ptr<point3> m_indices;
-
-		uint32_t	m_positions_size;
-		uint32_t	m_uv_size;
-		uint32_t	m_indices_size;
-	};
-
-	void serialize(class serializer* s, geometry_image* g);
-	void deserialize(class deserializer* s, geometry_image* g);
 }
 
