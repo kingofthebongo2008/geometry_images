@@ -62,6 +62,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -74,6 +75,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,9 +87,11 @@
     <ClInclude Include="..\..\src\asset\pch.h" />
     <ClInclude Include="..\..\src\asset\targetver.h" />
     <ClInclude Include="..\..\include\asset\geometry_image.h" />
+    <ClInclude Include="..\..\include\asset\geometry_image_serializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\asset\geometry_image.cpp" />
+    <ClCompile Include="..\..\src\asset\geometry_image_serializer.cpp" />
     <ClCompile Include="..\..\src\asset\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
