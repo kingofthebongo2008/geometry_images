@@ -34,5 +34,25 @@ namespace asset
 
 		file_handle m_file_handle;
 	};
+
+
+	class deserializer : non_copyable
+	{
+
+
+	public:
+
+		deserializer(const wchar_t* name);
+		~deserializer();
+
+		deserializer(deserializer&&o);
+		deserializer& operator =(deserializer&&o);
+
+		void read_bytes(void* buffer, size_t buffer_size);
+
+	private:
+
+		file_handle m_file_handle;
+	};
 }
 
