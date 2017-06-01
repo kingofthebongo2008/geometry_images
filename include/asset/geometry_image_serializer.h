@@ -54,5 +54,12 @@ namespace asset
 
 		file_handle m_file_handle;
 	};
+
+	inline uint32_t read_uint32_t(deserializer* s)
+	{
+		uint32_t r = 0;
+		s->read_bytes(&r, sizeof(r));
+		return r;
+	}
 }
 

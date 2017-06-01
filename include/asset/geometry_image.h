@@ -27,12 +27,16 @@ namespace asset
 		float m_y;
 	};
 
+	struct index
+	{
+		uint32_t m_index;
+	};
+
 	struct geometry_image : non_copyable
 	{
-
-		std::unique_ptr<point3> m_position;
-		std::unique_ptr<point3> m_uv;
-		std::unique_ptr<point3> m_indices;
+		std::unique_ptr<point3[]> m_position;
+		std::unique_ptr<point2[]> m_uv;
+		std::unique_ptr<index[]>  m_indices;
 
 		uint32_t	m_positions_size;
 		uint32_t	m_uv_size;
