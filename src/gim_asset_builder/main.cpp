@@ -7,11 +7,12 @@
 #include <regex>
 #include <iostream>
 #include <fstream>
+#include <assert.h>
 
-enum state
+enum state : uint32_t
 {
 	vertex,
-	vertex_ndex,
+	vertex_index,
 	vertex_index_x,
 	vertex_index_y,
 	vertex_index_z,
@@ -32,9 +33,33 @@ enum state
 	right_brace
 };
 
-std::regex get_regular_expresion( )
+std::regex get_regular_expresion(  state s )
 {
-	
+	static const std::regex states[] =
+	{
+		std::regex("Vertex"),
+		std::regex("[0-9]+"),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("\\{"),
+		std::regex("normal"),
+		std::regex("="),
+		std::regex("\\("),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("\\)"),
+		std::regex("uv"),
+		std::regex("="),
+		std::regex("\\("),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("^-?[0-9]+.[0-9]+"),
+		std::regex("\\)"),
+		std::regex("\\}")
+	};
+
+	return states[s];
 }
 
 void test(const std::string& s2)
@@ -46,14 +71,27 @@ void test(const std::string& s2)
 	//std::regex word_regex("\\(^Vertex\\s+\\d+\\)\\s+\\d+.\\d+");
 
 	std::regex word_regex("\\S+");
-	auto words_begin =
-		std::sregex_iterator(s.begin(), s.end(), word_regex);
+	auto words_begin = std::sregex_iterator(s.begin(), s.end(), word_regex);
 	auto words_end = std::sregex_iterator();
+
+	state st = state::vertex;
 
 	for (auto&& a = words_begin; a != words_end; ++a)
 	{
-		std::cout << a->str() << std::endl;
+		auto reg = get_regular_expresion(st);
+
+		if ( !std::regex_match(a->str(), reg) )
+		{
+			__debugbreak();
+		}
+		else
+		{
+			st = static_cast<state>(st + 1);
+			//__debugbreak();
+		}
 	}
+
+	assert(st == state::right_brace);
 }
 
 int main()
